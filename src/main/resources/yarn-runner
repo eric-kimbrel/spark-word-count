@@ -1,0 +1,14 @@
+#! /bin/bash
+
+NUM_EXECUTORS=10
+EXECUTOR_CORES=10
+EXECUTOR_MEMORY=10G
+APP_JAR=lib/spark-word-count-0.1.jar
+MAIN_CLASS=com.mydomain.wordcount.Main
+
+
+
+T="$(date +%s)"
+spark-submit --executor-cores $EXECUTOR_CORES --num-executors $NUM_EXECUTORS --executor-memory $EXECUTOR_MEMORY --class $MAIN_CLASS --master yarn-cluster $APP_JAR "$@"
+T="$(($(date +%s)-T))"
+echo "Time in seconds: ${T}"
